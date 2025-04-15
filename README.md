@@ -4,7 +4,7 @@
 
 # Zero
 
-A Raycast extension for seamless integration with [0.email](https://0.email).
+A Raycast extension for seamless integration with [Zero](https://github.com/mail-0/zero)
 
 ## Features
 

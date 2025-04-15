@@ -33,19 +33,19 @@ The extension provides the following tool that can be used with Raycast AI:
 
 ### Prerequisites
 - Node.js 20 or later
-- npm
+- Bun
 
 ### Setup
 ```bash
 # Clone the repository
-git clone https://github.com/jlokos/zeroray.git
-cd zeroray
+git clone https://github.com/jlokos/zero-raycast.git
+cd zero-raycast
 
 # Install dependencies
-npm install
+bun install
 
 # Run in development mode
-npm run dev
+bun run dev
 ```
 
 ## License

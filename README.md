@@ -1,5 +1,6 @@
 
-![zero](https://github.com/user-attachments/assets/515b4ada-decb-47af-bb39-8efcacfa5a54)
+
+![zero](https://github.com/user-attachments/assets/9834a496-4642-4f77-9a59-71e7a298f644)
 
 # Zero
 

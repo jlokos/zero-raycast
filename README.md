@@ -1,3 +1,6 @@
+
+![zero](https://github.com/user-attachments/assets/515b4ada-decb-47af-bb39-8efcacfa5a54)
+
 # Zero
 
 A Raycast extension for seamless integration with [0.email](https://0.email).

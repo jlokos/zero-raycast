@@ -1,5 +1,6 @@
 import { open, getPreferenceValues } from "@raycast/api";
 import { Tool } from "@raycast/api";
+import { showFailureToast } from "@raycast/utils";
 
 interface Preferences {
   enableDraftPreviews: boolean;
@@ -10,7 +11,6 @@ interface Preferences {
  * This tool is specifically for creating a new email draft with provided information,
  * NOT for searching emails. It assumes you already have the recipient information.
  * If the email contains markdown links, they will be converted to plain text and you must then convert to rich media.
- * At least one parameter (recipient, subject, body, cc, or bcc) is required.
  */
 type Input = {
   /**
@@ -141,12 +141,16 @@ export default async function tool(input: Input): Promise<string> {
 
     if (input.cc) params.push(`cc=${encodeURIComponent(input.cc)}`);
     if (input.bcc) params.push(`bcc=${encodeURIComponent(input.bcc)}`);
-    if (input.subject) params.push(`subject=${encodeURIComponent(input.subject)}`);
+    if (input.subject)
+      params.push(`subject=${encodeURIComponent(input.subject)}`);
     if (input.body) params.push(`body=${encodeURIComponent(input.body)}`);
 
     // Add debug information for URL construction
     console.log("URL being constructed:");
-    console.log("Base URL:", "mailto:" + (input.recipient ? encodeURIComponent(input.recipient) : ""));
+    console.log(
+      "Base URL:",
+      "mailto:" + (input.recipient ? encodeURIComponent(input.recipient) : ""),
+    );
     console.log("Parameters:", params);
 
     if (params.length > 0) {
@@ -157,7 +161,9 @@ export default async function tool(input: Input): Promise<string> {
 
     // Fall back to a default email if nothing is provided
     if (url === "mailto:") {
-      console.log("WARNING: No email parameters provided, using default email app behavior");
+      console.log(
+        "WARNING: No email parameters provided, using default email app behavior",
+      );
     }
 
     await open(url);
@@ -180,6 +186,7 @@ export default async function tool(input: Input): Promise<string> {
     return successMessage;
   } catch (error) {
     console.error("Failed to create email draft:", error);
-    return `Failed to create email draft: ${String(error)}. Please try again.`;
+    showFailureToast(error, { title: "Failed to create email draft" });
+    return "Failed to create email draft";
   }
 }

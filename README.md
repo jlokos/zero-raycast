@@ -1,6 +1,6 @@
 
 
-![zero](https://github.com/user-attachments/assets/9834a496-4642-4f77-9a59-71e7a298f644)
+![zero](assets/zero.png)
 
 # Zero
 
@@ -34,7 +34,7 @@ The extension provides the following tool that can be used with Raycast AI:
 
 ### Prerequisites
 - Node.js 20 or later
-- Bun
+- npm
 
 ### Setup
 ```bash
@@ -43,10 +43,10 @@ git clone https://github.com/jlokos/zero-raycast.git
 cd zero-raycast
 
 # Install dependencies
-bun install
+npm install
 
 # Run in development mode
-bun run dev
+npm run dev
 ```
 
 ## License

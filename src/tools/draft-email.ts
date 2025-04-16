@@ -9,7 +9,7 @@ interface Preferences {
  * Input parameters for the draft-email tool
  * This tool is specifically for creating a new email draft with provided information,
  * NOT for searching emails. It assumes you already have the recipient information.
- * If the email contains markdown links, they will be converted to plain text and you must then convert to rich media. 
+ * If the email contains markdown links, they will be converted to plain text and you must then convert to rich media.
  * At least one parameter (recipient, subject, body, cc, or bcc) is required.
  */
 type Input = {
@@ -46,50 +46,50 @@ type Input = {
  */
 export const confirmation: Tool.Confirmation<Input> = async (input) => {
   const { enableDraftPreviews } = getPreferenceValues<Preferences>();
-  
+
   // If draft previews are disabled, skip confirmation
   if (!enableDraftPreviews) {
     return undefined;
   }
-  
+
   let message = "Create email draft";
   const image = "✉️";
-  
+
   if (input.recipient) {
     message += ` to: ${input.recipient}`;
   }
-  
+
   if (input.subject) {
     message += `\nSubject: ${input.subject}`;
   }
-  
+
   // Create email preview content for confirmation dialog
   const info = [];
-  
+
   if (input.recipient) {
     info.push({ name: "To", value: input.recipient });
   }
-  
+
   if (input.cc) {
     info.push({ name: "CC", value: input.cc });
   }
-  
+
   if (input.bcc) {
     info.push({ name: "BCC", value: input.bcc });
   }
-  
+
   if (input.subject) {
     info.push({ name: "Subject", value: input.subject });
   }
-  
+
   if (input.body) {
     info.push({ name: "Body", value: input.body });
   }
-  
+
   return {
     message,
     image,
-    info
+    info,
   };
 };
 
@@ -118,7 +118,7 @@ export default async function tool(input: Input): Promise<string> {
   try {
     console.log(`Creating email draft in zero`);
     console.log("Input parameters received:", JSON.stringify(input, null, 2));
-    
+
     // Convert any Markdown links to plain text
     if (input.body) {
       const originalBody = input.body;
@@ -154,29 +154,29 @@ export default async function tool(input: Input): Promise<string> {
     }
 
     console.log(`Final URL: ${url}`);
-    
+
     // Fall back to a default email if nothing is provided
     if (url === "mailto:") {
       console.log("WARNING: No email parameters provided, using default email app behavior");
     }
-    
+
     await open(url);
 
     // Create a more informative success message including CC/BCC if provided
     let successMessage = "Email draft created successfully";
-    
+
     if (input.recipient) {
       successMessage += ` for ${input.recipient}`;
     }
-    
+
     if (input.cc) {
       successMessage += `, CC: ${input.cc}`;
     }
-    
+
     if (input.bcc) {
       successMessage += `, BCC: ${input.bcc}`;
     }
-    
+
     return successMessage;
   } catch (error) {
     console.error("Failed to create email draft:", error);
